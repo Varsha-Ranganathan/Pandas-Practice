@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+worker = worker[worker.department == "Admin"]
+worker = worker[worker["joining_date"].dt.month >= 4]
+len(worker)
