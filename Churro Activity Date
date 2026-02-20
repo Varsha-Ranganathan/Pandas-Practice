@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+LA_inspection = los_angeles_restaurant_health_inspections[(los_angeles_restaurant_health_inspections.facility_name == 'STREET CHURROS') & (los_angeles_restaurant_health_inspections.score < 95)]
+LA_inspection.loc[:, ["activity_date", "pe_description"]]
