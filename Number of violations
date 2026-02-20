@@ -1,0 +1,9 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+roxanne_cafe_df = sf_restaurant_health_violations[sf_restaurant_health_violations.business_name == "Roxanne Cafe"]
+
+roxanne_cafe_df = roxanne_cafe_df[roxanne_cafe_df.violation_id.notnull()]
+
+roxanne_cafe_df = roxanne_cafe_df.groupby(by=roxanne_cafe_df["inspection_date"].dt.year).size().reset_index().sort_values(0, ascending=False)
