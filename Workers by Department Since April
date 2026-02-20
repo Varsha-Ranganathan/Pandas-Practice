@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+workers_after_april = worker[worker.joining_date >= '2014-04-01']
+
+workers_after_april.groupby(by='department').size().reset_index()
