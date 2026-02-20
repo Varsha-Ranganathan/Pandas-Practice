@@ -1,0 +1,5 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+amazon_shipment.groupby(by=amazon_shipment['shipment_date'].dt.strftime('%Y-%m')).size().reset_index().rename(columns={0: "count"}).sort_values("count")
