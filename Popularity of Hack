@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+facebook_employees_renamed = facebook_employees.rename(columns={"id": "employee_id"})
+result = pd.merge(facebook_employees_renamed, facebook_hack_survey, on="employee_id", how='left')
+result.groupby(by='location').popularity.mean().reset_index()
