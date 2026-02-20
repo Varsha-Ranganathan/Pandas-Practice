@@ -1,0 +1,33 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+facebook_web_log['date'] = facebook_web_log["timestamp"].dt.date
+
+loads = (
+    facebook_web_log[facebook_web_log["action"] == "page_load"]
+    .groupby(["user_id", "date"])["timestamp"]
+    .max()
+    .rename("page_load")
+)
+
+exits = (
+    facebook_web_log[facebook_web_log["action"] == "page_exit"]
+    .groupby(["user_id", "date"])["timestamp"]
+    .min()
+    .rename("page_exit")
+)
+
+sessions = pd.concat([loads, exits], axis=1).reset_index()
+
+sessions = sessions.dropna(subset=["page_load", "page_exit"])
+sessions = sessions[sessions["page_load"] < sessions["page_exit"]]
+
+sessions["session_time"] = sessions["page_exit"] - sessions["page_load"]
+
+result = (
+    sessions
+    .groupby("user_id")["session_time"]
+    .mean()
+    .reset_index()
+)
