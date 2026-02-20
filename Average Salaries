@@ -1,0 +1,8 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+means = employee.groupby(by='department').salary.mean().reset_index().rename(columns={"salary": "avg_salary"})
+
+updated_table = pd.merge(employee, means, how="left")
+updated_table.loc[:, ["department","first_name","salary","avg_salary"]]
