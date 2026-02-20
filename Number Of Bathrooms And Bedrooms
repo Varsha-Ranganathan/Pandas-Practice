@@ -1,0 +1,4 @@
+# Import your libraries
+import pandas as pd
+
+airbnb_search_details.groupby(by=["city", "property_type"])[['bathrooms','bedrooms']].mean().reset_index()
