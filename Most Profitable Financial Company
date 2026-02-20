@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+profit = forbes_global_2010_2014[forbes_global_2010_2014.sector == 'Financials'].profits.idxmax()
+forbes_global_2010_2014.loc[[profit], ["company", "continent"]]
