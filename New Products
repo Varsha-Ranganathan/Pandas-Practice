@@ -1,0 +1,10 @@
+# Import your libraries
+import pandas as pd
+
+year_info = car_launches.groupby(["company_name", "year"]).product_name.count().reset_index()
+
+year_info = year_info.pivot(index="company_name", columns="year", values="product_name").reset_index()
+
+year_info["net_difference"] = year_info[2020] - year_info[2019]
+
+result = year_info[["company_name", "net_difference"]]
