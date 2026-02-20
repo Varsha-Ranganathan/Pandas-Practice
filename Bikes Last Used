@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+ids = dc_bikeshare_q1_2012.groupby(by="bike_number").end_time.idxmax()
+
+dc_bikeshare_q1_2012.loc[ids, ["bike_number", "end_time"]].sort_values("end_time")
