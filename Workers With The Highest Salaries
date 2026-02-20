@@ -1,3 +1,5 @@
+#Solution1
+
 # Import your libraries
 import pandas as pd
 
@@ -6,4 +8,15 @@ title_worker_id = title.rename(columns={"worker_ref_id": "worker_id"})
 merged_df = pd.merge(worker, title_worker_id, on='worker_id')
 max_salary = merged_df[merged_df["salary"] == merged_df["salary"].max()][
     ["worker_title"]].rename(columns={"worker_title": "best_paid_title"})
+
+
+#Solution2
+
+# Import your libraries
+import pandas as pd
+
+title_updated = title.rename(columns={"worker_ref_id": "worker_id"})
+workers_with_titles = pd.merge(worker, title_updated, how='right')
+max_salary = workers_with_titles.salary.max()
+workers_with_titles.loc[worker.salary == max_salary, ["worker_title"]]
 
