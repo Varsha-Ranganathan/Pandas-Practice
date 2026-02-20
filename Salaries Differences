@@ -1,0 +1,10 @@
+# Import your libraries
+import pandas as pd
+
+db_dept = db_dept.rename(columns={"id" : "department_id"})
+df = pd.merge(db_employee, db_dept, how="left")
+
+df = df.groupby(by='department').salary.max().reset_index()
+df_updated = df[(df.department == "engineering") | (df.department == "marketing")]
+
+abs(df_updated['salary'].iloc[0] - df_updated['salary'].iloc[1])
