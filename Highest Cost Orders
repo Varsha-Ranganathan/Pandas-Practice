@@ -1,0 +1,15 @@
+# Import your libraries
+import pandas as pd
+
+customers = customers.rename(columns={"id": "cust_id"})
+merged_table = pd.merge(customers, orders, on="cust_id")
+
+merged_table = merged_table[(merged_table.order_date >= '2019-02-01') & (merged_table.order_date <= '2019-05-01')]
+
+merged_table = merged_table.groupby(by=["first_name", "order_date"]).total_order_cost.sum().reset_index()
+
+merged_table["daily_max"]  = merged_table.groupby(by='order_date').total_order_cost.transform("max")
+
+daily_totals = merged_table[
+    merged_table["total_order_cost"] == merged_table["daily_max"]][["first_name", "order_date", "total_order_cost"]]
+
