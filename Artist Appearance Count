@@ -1,0 +1,4 @@
+# Import your libraries
+import pandas as pd
+
+spotify_worldwide_daily_song_ranking.groupby(by="artist").size().sort_values(ascending=False).reset_index()
