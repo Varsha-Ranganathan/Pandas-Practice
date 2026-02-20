@@ -1,0 +1,8 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+cust_updated = customers[(customers.first_name == "Jill") | (customers.first_name == "Eva")].rename(columns={"id": "cust_id"})
+
+result = pd.merge(cust_updated, orders, on="cust_id", how="left").sort_values("cust_id")
+result.loc[:, ["first_name", "order_date", "order_details", "total_order_cost"]]
