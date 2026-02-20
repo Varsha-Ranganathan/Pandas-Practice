@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+updated_table = spotify_worldwide_daily_song_ranking[spotify_worldwide_daily_song_ranking['position'] ==1]
+
+updated_table.groupby(by='trackname').size().sort_values(ascending=False).reset_index()
