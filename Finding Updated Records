@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+idx = ms_employee_salary.groupby('id')['salary'].idxmax()
+ms_employee_salary.loc[idx, ['id', 'first_name', 'last_name', 'department_id', 'salary']]
+
