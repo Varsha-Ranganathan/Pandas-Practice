@@ -1,0 +1,5 @@
+# Import your libraries
+import pandas as pd
+
+macbook_events = playbook_events[playbook_events.device == 'macbook pro']
+macbook_events.groupby(by='event_name').size().sort_values(ascending=False).reset_index()
