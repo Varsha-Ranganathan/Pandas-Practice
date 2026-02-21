@@ -1,0 +1,11 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+claims_2021 = pd.merge(cvs_claims, cvs_accounts, on="account_id", how="left")
+claims_2021["year"] = claims_2021["date_submitted"].dt.year
+claims_2021 = claims_2021[claims_2021.year == 2021]
+claims_2021["claim_count"] = (claims_2021.groupby("account_id")["account_id"].transform("count"))
+claims_2021 = claims_2021[claims_2021.claim_count > 1]
+claims_2021 = claims_2021.drop_duplicates("account_id")
+claims_2021.groupby(["gender"]).age.mean().reset_index()
