@@ -1,0 +1,9 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+cvs_claims = cvs_claims[(cvs_claims.date_accepted.isnull()) & (cvs_claims.date_rejected.isnull())]
+cvs_claims["year"] = cvs_claims["date_submitted"].dt.year
+cvs_claims["month"] = cvs_claims["date_submitted"].dt.month
+cvs_claims = cvs_claims[(cvs_claims.year == 2021) & (cvs_claims.month == 12)]
+cvs_claims.claim_id.count()
