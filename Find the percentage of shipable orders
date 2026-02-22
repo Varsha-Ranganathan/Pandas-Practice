@@ -1,0 +1,9 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+customers = customers.rename(columns=({"id" : "cust_id"}))
+total_orders = pd.merge(orders, customers, on="cust_id")
+shippable_orders_count = total_orders[total_orders.address.notnull()].id.count()
+total_orders_count = total_orders.id.count()
+result = (shippable_orders_count/total_orders_count)*100
