@@ -1,0 +1,10 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+facebook_posts['is_spam'] = facebook_posts.post_keywords.str.contains('spam')
+facebook_posts_views = pd.merge(facebook_posts, facebook_post_views, on="post_id")
+facebook_posts_views["total_by_day"] = facebook_posts_views.groupby(by="post_date").viewer_id.transform("count")
+facebook_posts_views["spams_by_day"] = facebook_posts_views.groupby(by="post_date").is_spam.transform("sum")
+facebook_posts_views["percentage"]  = (facebook_posts_views["spams_by_day"]/facebook_posts_views["total_by_day"])*100
+facebook_posts_views[["post_date", "percentage"]].drop_duplicates()
