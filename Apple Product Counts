@@ -1,0 +1,11 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+users_events = pd.merge(playbook_events, playbook_users, on="user_id")
+apple_events = users_events[users_events.device.isin(["macbook pro", "iphone 5s", "ipad air"])]
+apple_events = apple_events.groupby(by="language").agg({"user_id": "nunique"}).reset_index().rename(columns={"user_id" : "n_apple_users"})
+total_events = users_events.groupby(by="language").agg({"user_id": "nunique"}).reset_index().rename(columns={"user_id" : "n_total_users"})
+result = pd.merge(apple_events, total_events, on="language", how="right")
+result["n_apple_users"] = result.n_apple_users.fillna("0")
+result.sort_values("n_total_users", ascending=False)
