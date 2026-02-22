@@ -1,0 +1,9 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+voting_results = voting_results[voting_results.candidate.notnull()]
+voting_results["total_votes_per_candidate"] = voting_results.groupby(by="voter").candidate.transform("count")
+voting_results["vote_weight"] = 1/voting_results["total_votes_per_candidate"]
+voting_results = voting_results.groupby(by="candidate").agg({"vote_weight":"sum"}).reset_index()
+voting_results[voting_results.vote_weight == voting_results.vote_weight.max()]["candidate"]
