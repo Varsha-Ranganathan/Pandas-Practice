@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+airbnb_contacts = airbnb_contacts.groupby(["id_guest"]).agg({"n_messages": "sum"}).reset_index()
+airbnb_contacts['ranking'] = airbnb_contacts.n_messages.rank(method='dense',ascending=False).astype(int)
+airbnb_contacts.sort_values("ranking")
