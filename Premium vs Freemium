@@ -1,0 +1,8 @@
+# Import your libraries
+import pandas as pd
+
+merged_table = pd.merge(ms_user_dimension, ms_acc_dimension, on="acc_id")
+acc_user_downloads_merged = pd.merge(merged_table, ms_download_facts, on="user_id")
+acc_user_downloads_merged = acc_user_downloads_merged.groupby(["paying_customer", "date"]).downloads.sum().reset_index()
+acc_user_downloads_merged = acc_user_downloads_merged.pivot(index="date", columns="paying_customer",  values="downloads").reset_index().rename(columns={"no": "non_paying", "yes": "paying"})
+acc_user_downloads_merged = acc_user_downloads_merged[acc_user_downloads_merged.non_paying > acc_user_downloads_merged.paying ].sort_values("date")
