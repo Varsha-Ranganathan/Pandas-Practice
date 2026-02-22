@@ -1,0 +1,8 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+orders["order_date"] = pd.to_datetime(orders["order_date"])
+orders_march_2019 = orders[(orders.order_date.dt.year == 2019) & (orders.order_date.dt.month == 3)]
+result = orders_march_2019.groupby(by="cust_id").total_order_cost.sum().reset_index()
+result.sort_values(by="total_order_cost", ascending=False)
