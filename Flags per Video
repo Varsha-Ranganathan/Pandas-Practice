@@ -1,0 +1,8 @@
+# Import your libraries
+import pandas as pd
+
+user_flags["user_firstname"] = user_flags["user_firstname"].fillna("")
+user_flags["user_lastname"] = user_flags["user_lastname"].fillna("")
+user_flags = user_flags[user_flags.flag_id.notnull()]
+user_flags["name"] = user_flags["user_firstname"] + " " + user_flags["user_lastname"]
+user_flags.groupby(by="video_id")["name"].nunique().reset_index()
