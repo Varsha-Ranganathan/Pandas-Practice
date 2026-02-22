@@ -1,0 +1,13 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+sf_bonus_updated = sf_bonus.groupby(by="worker_ref_id").bonus.sum().reset_index()
+
+sf_employee = sf_employee.rename(columns={"id" : "worker_ref_id"})
+sf_employee_bonus = pd.merge(sf_employee, sf_bonus_updated, on="worker_ref_id")
+
+sf_employee_bonus = sf_employee_bonus[sf_employee_bonus.bonus.notnull()]
+sf_employee_bonus["total_compensation"] = sf_employee_bonus["salary"] + sf_employee_bonus["bonus"]
+sf_employee_bonus.groupby(["employee_title", "sex"]).total_compensation.mean().reset_index()
+
