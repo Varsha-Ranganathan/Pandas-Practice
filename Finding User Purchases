@@ -1,0 +1,10 @@
+# Import your libraries
+import pandas as pd
+
+amazon_transactions["purchase_date"] = pd.to_datetime(amazon_transactions["created_at"]).dt.date
+daily = amazon_transactions[["user_id", "purchase_date"]].drop_duplicates()
+ranked = daily.sort_values(["user_id", "purchase_date"])
+ranked["rn"] = ranked.groupby("user_id").cumcount() + 1
+first_two = ranked[(ranked.rn == 1) | (ranked.rn == 2)].pivot(index="user_id", columns="rn", values="purchase_date").reset_index().rename(columns={1: "first_purchase_date", 2: "second_purchase_date"})
+first_two["diff"] = (pd.to_datetime(first_two["second_purchase_date"]) - pd.to_datetime(first_two["first_purchase_date"])).dt.days
+result = first_two[(first_two["diff"] >= 1) & (first_two["diff"] <= 7)] [["user_id"]]
