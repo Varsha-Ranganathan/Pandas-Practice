@@ -1,0 +1,5 @@
+# Import your libraries
+import pandas as pd
+
+max_ids = employee.groupby(by="department").salary.idxmax()
+employee.loc[max_ids, ["department", "first_name", "salary"]]
