@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+sorted_business = yelp_business.sort_values(by="review_count", ascending=False)
+sorted_business["ranks"] = sorted_business.review_count.rank(method="min", ascending=False)
+top_5_business = sorted_business[sorted_business.ranks <= 5][["name", "review_count"]]
+top_5_business
