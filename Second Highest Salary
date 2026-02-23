@@ -1,0 +1,5 @@
+# Import your libraries
+import pandas as pd
+
+employee["salary_rank"] = employee["salary"].rank(method="dense", ascending=False)
+employee[employee["salary_rank"] == 2][["salary"]]
