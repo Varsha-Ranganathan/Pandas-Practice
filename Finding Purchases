@@ -1,0 +1,12 @@
+# Import your libraries
+import pandas as pd
+
+df = amazon_transactions.sort_values(by=['user_id', 'created_at'])
+df['prev_date'] = df.groupby('user_id')['created_at'].shift(1)
+df["days_diff"] = (df['created_at'] - df['prev_date']).dt.days
+result = df[
+    (df['days_diff'].notna()) & (df['days_diff'] > 0) & (df['days_diff'] <= 7)
+]
+returning_users = (
+    result['user_id'].drop_duplicates().sort_values().reset_index(drop=True)
+)
