@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+manager_13_employees = salesforce_employees[salesforce_employees.manager_id == 13]
+max_target = manager_13_employees.target.max()
+manager_13_employees[manager_13_employees.target == max_target][["first_name", "target"]]
