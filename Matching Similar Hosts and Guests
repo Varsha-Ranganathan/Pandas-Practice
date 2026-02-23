@@ -1,0 +1,10 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+hosts_guests_list = pd.merge(airbnb_hosts, airbnb_guests, on="nationality")
+hosts_guests_list = hosts_guests_list[(hosts_guests_list.gender_x == hosts_guests_list.gender_y)]
+hosts_guests_list.loc[:, ["host_id", "guest_id"]].drop_duplicates()
+
+
+
