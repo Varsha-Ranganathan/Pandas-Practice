@@ -1,0 +1,11 @@
+# Import your libraries
+import pandas as pd
+
+google_gmail_emails["total_sent"] = google_gmail_emails.groupby(by="from_user").from_user.transform("count")
+mails_sent_totals = google_gmail_emails[["from_user", "total_sent"]].drop_duplicates()
+
+mails_sent_totals = mails_sent_totals.sort_values(by=["total_sent", "from_user"], ascending=[False, True])
+
+mails_sent_totals["rank"] = (mails_sent_totals["total_sent"].rank(method="first", ascending=False).astype(int))
+
+mails_sent_totals
