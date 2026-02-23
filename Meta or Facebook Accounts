@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+fb_account_status["status_date"] = pd.to_datetime(fb_account_status["status_date"])
+fb_account_status_2010 = fb_account_status[fb_account_status.status_date == '2020-01-10']
+fb_account_status_2010_closed = fb_account_status_2010[fb_account_status_2010.status == 'closed']
+result = fb_account_status_2010_closed.acc_id.nunique()/fb_account_status_2010.acc_id.nunique()
