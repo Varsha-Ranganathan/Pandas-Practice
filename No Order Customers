@@ -1,0 +1,7 @@
+# Import your libraries
+import pandas as pd
+
+customers = customers.rename(columns={"id" : "cust_id"})
+customer_orders = pd.merge(customers, orders, on="cust_id", how="left")
+customers_with_orders_in_range = customer_orders[customer_orders.order_date.between('2019-02-1','2019-03-1')][["cust_id"]]
+result = customer_orders[~customer_orders["cust_id"].isin(customers_with_orders_in_range["cust_id"])]["first_name"].drop_duplicates()
