@@ -1,0 +1,6 @@
+# Import your libraries
+import pandas as pd
+
+# Start writing code
+olympics_athletes_events["athletes_count"] = olympics_athletes_events.groupby(by="games").id.transform("nunique")
+max_event = olympics_athletes_events[olympics_athletes_events.athletes_count == olympics_athletes_events.athletes_count.max()][["games", "athletes_count"]].drop_duplicates()
