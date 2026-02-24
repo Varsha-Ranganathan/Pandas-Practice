@@ -1,0 +1,8 @@
+import pandas as pd
+
+def sales_person(sales_person: pd.DataFrame, company: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFrame:
+    company_orders = pd.merge(company, orders, on="com_id")
+    orders_red = company_orders[company_orders.name == 'RED'][["sales_id"]]
+    sales_not_red = sales_person[~sales_person.sales_id.isin(orders_red.sales_id)][["name"]]
+
+    return sales_not_red
