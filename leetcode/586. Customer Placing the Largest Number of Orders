@@ -1,0 +1,9 @@
+import pandas as pd
+
+def largest_orders(orders: pd.DataFrame) -> pd.DataFrame:
+    orders["count_orders"] = orders.groupby(by="customer_number").order_number.transform("count")
+    orders.drop_duplicates(subset="customer_number", inplace=True)
+    max_id = orders.count_orders.idxmax()
+    
+    return orders.loc[[max_id], ["customer_number"]]
+    
