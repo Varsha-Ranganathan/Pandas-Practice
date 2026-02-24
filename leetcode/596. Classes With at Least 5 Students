@@ -1,0 +1,7 @@
+import pandas as pd
+
+def find_classes(courses: pd.DataFrame) -> pd.DataFrame:
+    courses["total_students"] = courses.groupby(by="class").student.transform("count")
+    courses.drop_duplicates(subset="class", inplace=True)
+    result = courses[courses.total_students >= 5][["class"]]
+    return result
