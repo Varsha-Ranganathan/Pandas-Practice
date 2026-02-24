@@ -1,0 +1,10 @@
+import pandas as pd
+
+def biggest_single_number(my_numbers: pd.DataFrame) -> pd.DataFrame:
+    my_numbers.sort_values(by="num", ascending=False, inplace=True)
+    my_numbers["n_appear"] = my_numbers.groupby(by="num").num.transform("count")
+    single_numbers = my_numbers[my_numbers.n_appear == 1]
+    if not single_numbers.empty:
+        return single_numbers.head(1)[["num"]]
+    else:
+        return pd.DataFrame({"num": [None]})
