@@ -1,0 +1,6 @@
+import pandas as pd
+
+def employee_bonus(employee: pd.DataFrame, bonus: pd.DataFrame) -> pd.DataFrame:
+    employee_bonus_table = pd.merge(employee, bonus, on="empId", how="left")
+
+    return employee_bonus_table[(employee_bonus_table.bonus < 1000) | (employee_bonus_table.bonus.isnull())][["name", "bonus"]]
