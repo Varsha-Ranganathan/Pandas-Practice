@@ -1,0 +1,9 @@
+import pandas as pd
+
+def find_employees(employee: pd.DataFrame) -> pd.DataFrame:
+    merged_table = pd.merge(employee, employee, left_on="managerId", right_on="id")
+    earning_over_manager = merged_table[merged_table.salary_x > merged_table.salary_y]
+    earning_over_manager = earning_over_manager.rename(columns={"name_x" : "Employee"}) 
+    result = earning_over_manager.loc[:, ["Employee"]]
+
+    return result
