@@ -1,0 +1,7 @@
+import pandas as pd
+
+def rising_temperature(weather: pd.DataFrame) -> pd.DataFrame:
+    weather = weather.sort_values('recordDate')
+    merged = pd.merge(weather, weather, how='inner', left_on=weather['recordDate'] - pd.Timedelta(days=1), right_on='recordDate')
+    return merged[merged.temperature_x  > merged.temperature_y][["id_x"]].rename(columns={"id_x" : "Id"})
+    
