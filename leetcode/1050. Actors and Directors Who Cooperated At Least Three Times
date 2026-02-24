@@ -1,0 +1,7 @@
+import pandas as pd
+
+def actors_and_directors(actor_director: pd.DataFrame) -> pd.DataFrame:
+    actor_director["cooperation_count"] = actor_director.groupby(by=['actor_id', "director_id"]).actor_id.transform("count")
+    actor_director_cooperated = actor_director[actor_director.cooperation_count >= 3][["actor_id", "director_id"]].drop_duplicates()
+    
+    return actor_director_cooperated
